@@ -7,6 +7,9 @@ urlpatterns = [
     # Get a user
     # ex: /backend/tommy/
     path("<name>/", views.user, name = "user"),
+    # Create a user
+    # ex. /create/tommy/
+    path("create/<new_name>/", views.create_user, name = "create_user"),
     # List all user applications
     # ex: /backend/tommy/applications/
     path("<name>/applications", views.user_applications, name = "applications"),
