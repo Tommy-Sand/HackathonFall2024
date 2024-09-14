@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.utils.dateparse import parse_datetime
 
-from .models import User, JobApplication
+from .models import User, JobApplication, Job
 
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 
@@ -44,5 +48,54 @@ def jobs(request):
 def job(request, job_id):
     return HttpResponse("/backend/jobs/<int:job_id>/ unimplemented")
 
+@csrf_exempt
 def apply_to_job(request, name, job_id):
-    return HttpResponse("jobs/<int:job_id>/apply/<name> unimplemented")
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(name=name)
+            job = Job.objects.get(id=job_id)
+        except User.DoesNotExist:
+            return JsonResponse({"error": "User does not exist."}, status=404)
+        except Job.DoesNotExist:
+            return JsonResponse({"error": "Job does not exist."}, status=404)
+
+
+        try:
+            data = json.loads(request.body)
+            send_date = parse_datetime(data['send_date'])
+            interview_date = parse_datetime(data.get('interview_date')) if data.get('interview_date') else None
+            accept_date = parse_datetime(data.get('accept_date')) if data.get('accept_date') else None
+            status = data['status']
+            resume = data.get('resume', '')
+
+            application = JobApplication.objects.create(
+                user=user,
+                job_posting=job,
+                send_date=send_date,
+                status=status,
+                interview_date=interview_date,
+                accept_date=accept_date,
+                resume=resume
+            )
+
+        
+            response_data = {
+                "message": f"Applied to job {job_id} successfully.",
+                "application": {
+                    "id": application.id,
+                    "user": application.user.name,
+                    "job": application.job_posting.id,
+                    "send_date": application.send_date.isoformat() if application.send_date else None,
+                    "status": application.status,
+                    "interview_date": application.interview_date.isoformat() if application.interview_date else None,
+                    "accept_date": application.accept_date.isoformat() if application.accept_date else None,
+                    "resume": application.resume
+                }
+            }
+            return JsonResponse(response_data, status=201)
+
+        except (ValueError, KeyError) as e:
+            return JsonResponse({"error": "Invalid input data.", "details": str(e)}, status=400)
+
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)
