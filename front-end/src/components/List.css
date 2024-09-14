@@ -7,9 +7,9 @@
   
   .application-item {
     background-color: #ffffff;
-    padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px 0;
+    border: 2px solid #ddd;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
@@ -17,7 +17,7 @@
   }
   
   .application-item button {
-    background-color: #ff0000;
+    background-color: #4c00ff;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -26,6 +26,5 @@
   }
   
   .application-item button:hover {
-    background-color: #7c0000;
-  }
-  
+    background-color: #007c3e;
+  }  

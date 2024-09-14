@@ -1,15 +1,16 @@
 import './List.css'
-function ApplicationList({ applications, deleteApplication }) {
+function UserList({ applications, deleteUser, signInUser }) {
     return (
       <ul className = "list">
         {applications.map(app => (
           <li key={app.id} className = "application-item">
-            {app.company} - {app.position} (Applied on: {app.dateApplied}, Status: {app.status})
-            <button onClick={() => deleteApplication(app.id)}>Delete</button>
+            {app.company}
+            <button onClick={() => signInUser(app.id)}>Sign In</button>
+            <button onClick={() => deleteUser(app.id)}>Delete</button>
           </li>
         ))}
       </ul>
     );
   }
   
-  export default ApplicationList;
+  export default UserList;

@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';  
-import TrackMyApplications from './components/TrackMyApplications';
+import TrackMyUsers from './components/TrackMyUsers';
 
 function App() {
   return (
     <div className="App">
-      <TrackMyApplications />
+      <TrackMyUsers />
     </div>
   );
 }
