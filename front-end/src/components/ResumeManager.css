@@ -1,0 +1,30 @@
+.tailored-resumes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.resume-icon {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  width: 150px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.resume-icon h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.resume-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resume-form input[type="text"] {
+  margin-bottom: 10px;
+}

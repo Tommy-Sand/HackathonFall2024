@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Filter from './Filter';  
 import ApplicationList from './List';
 import AddApplicationForm from './AddApplication';
+import ResumeManager from "./ResumeManager.jsx";
 import './TrackMyApplications.css'
 
 function TrackMyApplications() {
@@ -49,6 +50,7 @@ function TrackMyApplications() {
         setNewApplication={setNewApplication}
         addApplication={addApplication}
       />
+        <ResumeManager />
     </div>
   );
 }
